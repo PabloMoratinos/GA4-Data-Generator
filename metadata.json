@@ -1,0 +1,5 @@
+{
+  "name": "GA4 Data Generator",
+  "description": "Agent to continuously send fake events to Google Analytics 4 for testing purposes.",
+  "requestFramePermissions": []
+}
