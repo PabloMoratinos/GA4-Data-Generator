@@ -12,6 +12,7 @@ export default function App() {
     eventsPerMinute: 60,
     customEvents: [],
     selectedStandardEvents: EVENT_TYPES.map(name => ({ name, weight: 1 })),
+    debugMode: true,
   });
   
   const [isRunning, setIsRunning] = useState(false);
@@ -226,7 +227,8 @@ export default function App() {
             apiSecret: parsedConfig.apiSecret || '',
             eventsPerMinute: parsedConfig.eventsPerMinute || 60,
             customEvents: parsedConfig.customEvents || [],
-            selectedStandardEvents: parsedConfig.selectedStandardEvents || []
+            selectedStandardEvents: parsedConfig.selectedStandardEvents || [],
+            debugMode: parsedConfig.debugMode !== undefined ? parsedConfig.debugMode : true
           });
         } else {
           alert('Invalid blueprint format.');
@@ -332,6 +334,22 @@ export default function App() {
                   />
                   <span className="text-sm font-mono w-12 text-right">{config.eventsPerMinute}</span>
                 </div>
+              </div>
+
+              <div className="pt-2">
+                <label className="flex items-center gap-3 text-sm font-mono text-neutral-300 cursor-pointer hover:text-white transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={config.debugMode}
+                    onChange={(e) => setConfig({ ...config, debugMode: e.target.checked })}
+                    disabled={isRunning}
+                    className="w-4 h-4 accent-emerald-500 bg-[#0a0a0a] border-[#262626] rounded cursor-pointer disabled:opacity-50"
+                  />
+                  <span>Enable Debug Mode</span>
+                </label>
+                <p className="text-xs text-neutral-500 mt-1 pl-7">
+                  Sends <code className="bg-[#1a1a1a] px-1 rounded">debug_mode: 1</code> to view events in GA4 DebugView.
+                </p>
               </div>
             </div>
 

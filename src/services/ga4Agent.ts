@@ -16,6 +16,7 @@ export interface GA4Config {
   eventsPerMinute: number;
   customEvents: CustomEventDef[];
   selectedStandardEvents: StandardEventDef[];
+  debugMode: boolean;
 }
 
 export interface GA4EventLog {
@@ -165,6 +166,7 @@ class GA4Agent {
           medium: traffic.medium,
           ...(traffic.campaign ? { campaign: traffic.campaign } : {}),
           ...(traffic.referrer ? { page_referrer: traffic.referrer } : {}),
+          ...(this.config?.debugMode ? { debug_mode: 1 } : {}),
           ...eventParams
         }
       }]
